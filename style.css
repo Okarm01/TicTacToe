@@ -15,7 +15,6 @@
 .square{
     height: 60px;
     width: 60px;
-    position: relative;
     border: 2px solid rgb(255, 255, 255);
     background-color: rgb(0, 0, 0);
 }
@@ -23,33 +22,25 @@
     height: 30px;
     width: 30px;
     margin: 15px;
-    position: relative;
-    z-index: -9;
+    transform-origin: center; 
+    animation: bounce 0.3s ease-in-out 1;
 }
 .square .piece#cross svg {
     height: 50px;
     width: 50px;
     margin: 5px;
-    position: relative;
-    z-index: -9;
-}
-.square cross {
-    height: 30px;
-    width: 30px;
-    margin: 15px;
-    position: relative;
-    z-index: -9;
-}
-.piece {
-    position: relative;
-    z-index: 9;
-}
-.square.coloredCross .piece#cross svg path {
-    fill: blue;
+    transform-origin: center; 
+    animation: bounce 0.3s ease-in-out 1;
 }
 
-.square.coloredCircle .piece#circle svg {
+.square.coloredCross .piece#cross svg path {
     fill: blue;
+    transition: fill 2s ease;
+}
+
+.square.coloredCircle .piece#circle svg{
+    fill: blue;
+    transition: fill 2s ease;
 }
 #info{
     display: flex;
@@ -58,4 +49,34 @@
     margin-top: 20px;
     font-family:'Kanit', sans-serif;
     font-size: 30px;
+}
+p.playAgain{
+    display: flex;
+    justify-content: center;
+    margin-left: -10px;
+    margin-top: 20px;
+    font-family:'Kanit', sans-serif;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 3px;
+    padding-top: 0px;
+    background-color: rgb(71, 104, 224);
+    
+}
+.playAgain{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-family:'Kanit', sans-serif;
+    font-size: 30px;
+   
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
 }
