@@ -1,9 +1,10 @@
 const gameBoard = document.querySelector('#gameboard')
-const width = 3
-
+const infoDisplay = document.querySelector('#info')
 let playerGo = 'circle'
 const circle = '<div class="piece" id="circle"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg></div>'
 const cross = '<div class="piece" id="cross"><svg style="color: white" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" fill="white"></path> </svg></div>'
+
+
 const startPieces = [
     '','','',
     '','','',
@@ -36,15 +37,15 @@ function handleClick(event) {
 
     const clickedSquare = event.target;
     const squareId = clickedSquare.getAttribute('square-id');
-    changePlayer()
     
-     
+
     if (!clickedSquare.innerHTML.trim() && playerGo === 'cross') {
-        
         clickedSquare.innerHTML = circle;
+        changePlayer()
     
     }else if(!clickedSquare.innerHTML.trim() && playerGo === 'circle'){
         clickedSquare.innerHTML = cross;
+        changePlayer()
     }
 
     checkForWinCircle()
@@ -63,7 +64,7 @@ squares.forEach(square => {
     square.addEventListener('click', handleClick);
 });
 function BoardFull() {
-    return Array.from(squares).every(square => square.innerHTML.trim() !== '');
+    return Array.from(squares).every(square => square.innerHTML.trim() !== '')
 }
 
 
@@ -85,16 +86,19 @@ function checkForWinCircle() {
 
     for (const combination of winningCombinations) {
         const [a, b, c] = combination;
-        const squareA = document.querySelector(`[square-id="${a}"]`);
-        const squareB = document.querySelector(`[square-id="${b}"]`);
-        const squareC = document.querySelector(`[square-id="${c}"]`);
+        const squareA = document.querySelector(`[square-id="${a}"]`)
+        const squareB = document.querySelector(`[square-id="${b}"]`)
+        const squareC = document.querySelector(`[square-id="${c}"]`)
 
-        const childA = squareA.querySelector('#circle');
-        const childB = squareB.querySelector('#circle');
-        const childC = squareC.querySelector('#circle');
+        const childA = squareA.querySelector('#circle')
+        const childB = squareB.querySelector('#circle')
+        const childC = squareC.querySelector('#circle')
 
         if (childA && childB && childC) {
-            console.log("Circle Wins")
+            squareA.classList.add('coloredCircle')
+            squareB.classList.add('coloredCircle')
+            squareC.classList.add('coloredCircle')
+            infoDisplay.innerHTML = 'Circle wins'
             playerGo = 'stop'
             return
         }
@@ -112,16 +116,19 @@ function checkForWinCross() {
 
     for (const combination of winningCombinations) {
         const [a, b, c] = combination;
-        const squareA = document.querySelector(`[square-id="${a}"]`);
-        const squareB = document.querySelector(`[square-id="${b}"]`);
-        const squareC = document.querySelector(`[square-id="${c}"]`);
+        const squareA = document.querySelector(`[square-id="${a}"]`)
+        const squareB = document.querySelector(`[square-id="${b}"]`)
+        const squareC = document.querySelector(`[square-id="${c}"]`)
 
-        const childA = squareA.querySelector('#cross');
-        const childB = squareB.querySelector('#cross');
-        const childC = squareC.querySelector('#cross');
+        const childA = squareA.querySelector('#cross')
+        const childB = squareB.querySelector('#cross')
+        const childC = squareC.querySelector('#cross')
 
         if (childA && childB && childC) {
-            console.log("Cross Wins")
+            squareA.classList.add('coloredCross')
+            squareB.classList.add('coloredCross')
+            squareC.classList.add('coloredCross')
+            infoDisplay.innerHTML = 'Cross wins'
             playerGo = 'stop'
             return
         }
