@@ -1,5 +1,6 @@
 const gameBoard = document.querySelector('#gameboard')
 const infoDisplay = document.querySelector('#info')
+const playAgain = document.querySelector('#play')
 let playerGo = 'circle'
 const circle = '<div class="piece" id="circle"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg></div>'
 const cross = '<div class="piece" id="cross"><svg style="color: white" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" fill="white"></path> </svg></div>'
@@ -23,10 +24,17 @@ function createBoard(){
     
 }
 createBoard()
-
 const squares = document.querySelectorAll('.square');
 
+playAgain.addEventListener('click', playNewGame);
 
+function playNewGame(event){
+
+    console.log('New game')
+    location.reload();
+
+
+}
 
 function handleClick(event) {
 
@@ -35,8 +43,8 @@ function handleClick(event) {
         return
     }
 
-    const clickedSquare = event.target;
-    const squareId = clickedSquare.getAttribute('square-id');
+    const clickedSquare = event.target
+    const squareId = clickedSquare.getAttribute('square-id')
     
 
     if (!clickedSquare.innerHTML.trim() && playerGo === 'cross') {
@@ -50,11 +58,8 @@ function handleClick(event) {
 
     checkForWinCircle()
     checkForWinCross()
+    checkForDraw()
     
-    if (BoardFull() && playerGo !=='stop') {
-        console.log("Draw !");
-        playerGo = 'stop'
-    }
     
     console.log(playerGo)
     
@@ -63,10 +68,10 @@ squares.forEach(square => {
     
     square.addEventListener('click', handleClick);
 });
+
 function BoardFull() {
     return Array.from(squares).every(square => square.innerHTML.trim() !== '')
 }
-
 
 function changePlayer() {
     if(playerGo === 'circle'){
@@ -74,6 +79,13 @@ function changePlayer() {
     }
     else{
         playerGo = 'circle'
+    }
+}
+
+function checkForDraw(){
+    if (BoardFull() && playerGo !=='stop') {
+        infoDisplay.innerHTML = 'Draw'
+        playerGo = 'stop'
     }
 }
 
@@ -99,6 +111,8 @@ function checkForWinCircle() {
             squareB.classList.add('coloredCircle')
             squareC.classList.add('coloredCircle')
             infoDisplay.innerHTML = 'Circle wins'
+            playAgain.classList.add('playAgain')
+            playAgain.innerHTML = 'Play Again'
             playerGo = 'stop'
             return
         }
@@ -129,6 +143,8 @@ function checkForWinCross() {
             squareB.classList.add('coloredCross')
             squareC.classList.add('coloredCross')
             infoDisplay.innerHTML = 'Cross wins'
+            playAgain.classList.add('playAgain')
+            playAgain.innerHTML = 'Play Again'
             playerGo = 'stop'
             return
         }
