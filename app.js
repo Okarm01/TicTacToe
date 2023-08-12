@@ -85,6 +85,8 @@ function changePlayer() {
 function checkForDraw(){
     if (BoardFull() && playerGo !=='stop') {
         infoDisplay.innerHTML = 'Draw'
+        playAgain.classList.add('playAgain')
+        playAgain.innerHTML = 'Play Again'
         playerGo = 'stop'
     }
 }
