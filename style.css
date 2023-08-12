@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -41,4 +43,19 @@
 .piece {
     position: relative;
     z-index: 9;
+}
+.square.coloredCross .piece#cross svg path {
+    fill: blue;
+}
+
+.square.coloredCircle .piece#circle svg {
+    fill: blue;
+}
+#info{
+    display: flex;
+    justify-content: center;
+    margin-left: -10px;
+    margin-top: 20px;
+    font-family:'Kanit', sans-serif;
+    font-size: 30px;
 }
