@@ -1,6 +1,7 @@
 const gameBoard = document.querySelector('#gameboard')
 const infoDisplay = document.querySelector('#info')
 const playAgain = document.querySelector('#play')
+const audio = new Audio('sound/pop-window-2.mp3');
 let playerGo = 'cross'
 
 const circle = '<div class="piece" id="circle"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg></div>'
@@ -58,10 +59,16 @@ function handleClick(event) {
 
     if (!clickedSquare.innerHTML.trim() && playerGo === 'cross') {
         clickedSquare.innerHTML = circle
+        audio.pause();
+        audio.currentTime = 0;
+        audio.play();
         changePlayer()
     
     }else if(!clickedSquare.innerHTML.trim() && playerGo === 'circle'){
         clickedSquare.innerHTML = cross
+        audio.pause();
+        audio.currentTime = 0;
+        audio.play();
         changePlayer()
         
     }else{
